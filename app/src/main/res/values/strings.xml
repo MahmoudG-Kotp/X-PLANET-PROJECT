@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">X-PLANET</string>
+    <string name="splash_skip">Get Started</string>
+    <string name="project_name">THE\nMARTIANS</string>
+    <string name="splash_background_content">Splash Background</string>
+    <string name="splash_skip_content">Next</string>
+    <string name="chapters_background_content">Chapters Background</string>
+
+    <string name="chapter_one">CHAPTER\nONE</string>
+    <string name="chapter_two">CHAPTER\nTWO</string>
+    <string name="chapter_three">CHAPTER\nTHREE</string>
+    <string name="chapter_four">CHAPTER\nFOUR</string>
+    <string name="chapter_five">CHAPTER\nFIVE</string>
+    <string name="chapter_six">CHAPTER\nSIX</string>
+
+    <string name="chapter_one_name">The\nBeginning</string>
+    <string name="chapter_two_name">Mars\nDescription</string>
+    <string name="chapter_three_name">The\nCommunication</string>
+    <string name="chapter_four_name">Failed\nMissions</string>
+    <string name="chapter_five_name">Successful\nMissions</string>
+    <string name="chapter_six_name">Our\nModifications</string>
+    <string name="clicked_chapter_id_key">CLICKED_CARD_ID</string>
+    <string name="splash_status_key">SplashStatus</string>
+    <string name="is_splash_skipped_key">IsSplashSkipped</string>
+    <string name="dark_mode_status_key">DarkModeStatus</string>
+    <string name="is_dark_mode_enabled_key">IsDarkModeEnabled</string>
+    <string name="chapter_scroll_position_key">_ScrollPosition</string>
+
+    <string-array name="splash_headers">
+        <item>Why Mars?</item>
+        <item>About Mars</item>
+        <item>Mars Rotational</item>
+        <item>First Mission</item>
+    </string-array>
+
+    <string-array name="splash_descriptions">
+        <item>There are several strategic, practical, and scientific reasons for humans to explore Mars.\n\nAmong them we know that Mars is the most accessible place in the solar system.\n\nIn Addition exploring Mars provides the opportunity to possibly answer origin and evolution of life questions and could someday be a destination for survival of humankind.</item>
+        <item>Mars has captivated the popular imagination like no other planet. But rather than being the abode of warlike aliens Mars proves to be an enigmatic world.\n\nOur challenge is to understand how these three nominally Earthlike worlds evolved to be so unique and so different than our own Earth.</item>
+        <item>The rotation period of Mars is approximately 24 hours same as the Earth and more accurate observations which showed that a Martian day is 37.5 minutes longer than on Earth.\n\nMars’s axis of rotation is not perpendicular to the plane of the planet’s orbit but is tilted by about 25° away from the perpendicular. This is very close to the Earth’s 23.5.</item>
+        <item>From 1960 to 1964 Soviet failures\nThe Soviet Union is the first to sent out probes from Antum of 1969 three years after the launch of the first satellite Spatunik1 but they failed for 4 years.\n\nIn 1962 Maeza1 was launched It was the first probe to leave the earth but was disconnected a few months after the launch.</item>
+    </string-array>
+</resources>
