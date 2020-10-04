@@ -3,7 +3,7 @@ This project's an android application which can be considered as a part of the s
 
 ***APK Path: X-PLANET-PROJECT/app/release/app-release.apk*** *or [download](https://drive.google.com/file/d/1lnI0zkpVI-wV_kIgFThJfWS2EfcyOsNd/view?usp=sharing)*
 
-You can watch the whole **DESIGN** preview [from here](https://drive.google.com/file/d/1z6pzZNh7Me_xYI0isWNdI_NJref8pFpK/view?usp=sharing) and [documentaion from here](https://drive.google.com/file/d/1y5pEAAtX1uJ0ucZyANGwuxuPADz67FWp/view?usp=sharing)
+You can watch the whole **DESIGN** preview [from here](https://drive.google.com/file/d/1z6pzZNh7Me_xYI0isWNdI_NJref8pFpK/view?usp=sharing) and **DOCUMENTATION** [from here](https://drive.google.com/file/d/1y5pEAAtX1uJ0ucZyANGwuxuPADz67FWp/view?usp=sharing)
 
 ------
 ## DESIGNS :+1:
