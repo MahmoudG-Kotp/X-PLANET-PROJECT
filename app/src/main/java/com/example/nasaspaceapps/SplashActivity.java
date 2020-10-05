@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
     private LinearLayout viewpagerIndicator;
     private int dotsCount;
     private ImageView[] dots;
-    private Button skipSplashBttn;
+    private Button skipSplashBtn;
     private ViewPager splashViewPager;
     private int previous_pos = 0;
     @Override
@@ -32,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initiateSplashItems() {
-        skipSplashBttn = findViewById(R.id.btn_splash_skip);
+        skipSplashBtn = findViewById(R.id.btn_splash_skip);
         viewpagerIndicator = findViewById(R.id.viewPagerCountDots);
         splashViewPager = findViewById(R.id.viewpager_board);
     }
@@ -56,9 +56,9 @@ public class SplashActivity extends AppCompatActivity {
                 dots[position].setImageDrawable(ContextCompat.getDrawable(SplashActivity.this, R.drawable.selected_item_dot));
                 int pos=position+1;
                 if(pos == dotsCount&&previous_pos==(dotsCount-1))
-                    show_animation();
+                    show_animation(skipSplashBtn);
                 else if(pos == (dotsCount-1)&&previous_pos==dotsCount)
-                    hide_animation();
+                    hide_animation(skipSplashBtn);
                 previous_pos = pos;
             }
             @Override
@@ -102,29 +102,28 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    public void show_animation() {
+    public void show_animation(final View view) {
         Animation slideUpAnim = AnimationUtils.loadAnimation(this, R.anim.slide_skip_splash_button_up);
-        skipSplashBttn.startAnimation(slideUpAnim);
+        view.startAnimation(slideUpAnim);
 
         slideUpAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                skipSplashBttn.setVisibility(View.VISIBLE);
+                view.setVisibility(View.VISIBLE);
             }
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
             @Override
             public void onAnimationEnd(Animation animation) {
-                skipSplashBttn.clearAnimation();
+                view.clearAnimation();
             }
         });
     }
 
-    public void hide_animation(){
+    public void hide_animation(final View view){
         Animation slideDownAnim = AnimationUtils.loadAnimation(this, R.anim.slide_skip_splash_button_down);
-        skipSplashBttn.startAnimation(slideDownAnim);
-
+        view.startAnimation(slideDownAnim);
         slideDownAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -134,8 +133,8 @@ public class SplashActivity extends AppCompatActivity {
             }
             @Override
             public void onAnimationEnd(Animation animation) {
-                skipSplashBttn.clearAnimation();
-                skipSplashBttn.setVisibility(View.INVISIBLE);
+                view.clearAnimation();
+                view.setVisibility(View.GONE);
             }
         });
     }

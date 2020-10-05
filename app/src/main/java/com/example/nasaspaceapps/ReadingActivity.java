@@ -15,7 +15,7 @@ import android.widget.ImageButton;
 
 public class ReadingActivity extends AppCompatActivity {
     private WebView readingContentWV;
-    private ImageButton darkModeIB;
+    private ImageButton darkModeIB, gotoTopIB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,17 @@ public class ReadingActivity extends AppCompatActivity {
 
     private void initiateReadingItems() {
         readingContentWV = findViewById(R.id.wv_reading_content);
+        readingContentWV.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if((v.getTop() - scrollY * v.getHeight()) == v.getTop())
+                    hide_animation(gotoTopIB);
+                else
+                    show_animation(gotoTopIB);
+            }
+        });
         darkModeIB = findViewById(R.id.img_btn_dark_mode);
+        gotoTopIB = findViewById(R.id.btn_go_to_top);
     }
 
     private Chapters getClickedChapter() {
@@ -54,12 +64,16 @@ public class ReadingActivity extends AppCompatActivity {
             readingContentWV.setBackgroundColor(getColor(R.color.color_dark_black));
             darkModeIB.setBackgroundResource(R.drawable.disable_dark_mode_bttn_background);
             darkModeIB.setImageResource(R.drawable.ic_disable_dark_mode);
+            gotoTopIB.setBackgroundResource(R.drawable.disable_dark_mode_bttn_background);
+            gotoTopIB.setImageResource(R.drawable.ic_arrow_go_to_top_dark_mode);
         }
         else {
             readingContentWV.loadUrl("file:///android_asset/" + chapter.toString().toLowerCase() + "_light_mode.html");
             readingContentWV.setBackgroundColor(getColor(R.color.color_white));
             darkModeIB.setBackgroundResource(R.drawable.enable_dark_mode_bttn_background);
             darkModeIB.setImageResource(R.drawable.ic_enable_dark_mode);
+            gotoTopIB.setBackgroundResource(R.drawable.enable_dark_mode_bttn_background);
+            gotoTopIB.setImageResource(R.drawable.ic_arrow_go_to_top_light_mode);
         }
         WebSettings webSettings = readingContentWV.getSettings();
         webSettings.setBuiltInZoomControls(true);
@@ -78,8 +92,57 @@ public class ReadingActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.dark_mode_status_key), MODE_PRIVATE).edit();
         editor.putBoolean(getString(R.string.is_dark_mode_enabled_key), !isDarkModeEnabled());
         editor.apply();
-        darkModeIB.startAnimation(fadeDarkModeSrcIn);
+        gotoTopIB.startAnimation(fadeDarkModeSrcIn);
+        view.startAnimation(fadeDarkModeSrcIn);
         loadReadingContent(getClickedChapter());
+    }
+
+    public void goToTop(View view){
+        ObjectAnimator anim = ObjectAnimator.ofInt(readingContentWV,
+                "scrollY", readingContentWV.getScrollY(), 0);
+        anim.setDuration(500);
+        anim.start();
+        saveChapterScrollPosition(getClickedChapter(), readingContentWV);
+
+    }
+
+    public void show_animation(final View view) {
+        Animation slideUpAnim = AnimationUtils.loadAnimation(this, R.anim.slide_go_to_top_button_down);
+        if(!view.isShown())
+            view.startAnimation(slideUpAnim);
+
+        slideUpAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                view.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.clearAnimation();
+            }
+        });
+    }
+
+    public void hide_animation(final View view){
+        Animation slideDownAnim = AnimationUtils.loadAnimation(this, R.anim.slide_go_to_top_button_up);
+        if (view.isShown())
+            view.startAnimation(slideDownAnim);
+        slideDownAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.setVisibility(View.GONE);
+                view.clearAnimation();
+            }
+        });
     }
 
     private boolean isDarkModeEnabled(){
@@ -97,10 +160,13 @@ public class ReadingActivity extends AppCompatActivity {
     }
 
     private void setChapterScrollPosition(Chapters chapter, WebView webView){
-        ObjectAnimator anim = ObjectAnimator.ofInt(webView, "scrollY",
-                readingContentWV.getScrollY(), getChapterScrollPosition(chapter));
-        anim.setDuration(500);
-        anim.start();
+        int chapterScrollPosition = getChapterScrollPosition(chapter);
+        if (webView.getTop() != chapterScrollPosition){
+            ObjectAnimator anim = ObjectAnimator.ofInt(webView, "scrollY",
+                    webView.getScrollY(), chapterScrollPosition);
+            anim.setDuration(500);
+            anim.start();
+        }
     }
 
     @Override

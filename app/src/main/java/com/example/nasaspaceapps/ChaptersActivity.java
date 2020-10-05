@@ -11,11 +11,13 @@ import androidx.cardview.widget.CardView;
 
  public class ChaptersActivity extends AppCompatActivity {
     private static Boolean isChaptersViewVisible = false;
+    private Boolean isBackgroundAnimationEnded = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapters);
-        startSplashActivity();
+        if (!isSplashSkipped())
+            startSplashActivity();
         gridLayoutListener();
     }
 
@@ -24,31 +26,33 @@ import androidx.cardview.widget.CardView;
          final Animation scaleClickAnim = AnimationUtils.loadAnimation(this, R.anim.scale_chapters_card_click);
          for (int cardCount = 0; cardCount < chaptersGridLayout.getChildCount(); cardCount++) {
             CardView chapterCard = (CardView) chaptersGridLayout.getChildAt(cardCount);
-                chapterCard.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View view) {
+            chapterCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    if (isBackgroundAnimationEnded()) {
                         view.setEnabled(false);
                         view.startAnimation(scaleClickAnim);
                         scaleClickAnim.setAnimationListener(new Animation.AnimationListener() {
-                             @Override
-                             public void onAnimationStart(Animation animation) {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
 
-                             }
+                            }
 
-                             @Override
-                             public void onAnimationEnd(Animation animation) {
-                                 startActivity(new Intent(ChaptersActivity.this, ReadingActivity.class).putExtra(getString(R.string.clicked_chapter_id_key), view.getId()));
-                                 overridePendingTransition(R.anim.slide_reading_activity_up, R.anim.fade_chapters_activity_in);
-                             }
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                startActivity(new Intent(ChaptersActivity.this, ReadingActivity.class).putExtra(getString(R.string.clicked_chapter_id_key), view.getId()));
+                                overridePendingTransition(R.anim.slide_reading_activity_up, R.anim.fade_chapters_activity_in);
+                            }
 
-                             @Override
-                             public void onAnimationRepeat(Animation animation) {
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
 
-                             }
-                         });
+                            }
+                        });
                         view.setEnabled(true);
                     }
-                });
+                }
+            });
          }
      }
 
@@ -66,16 +70,38 @@ import androidx.cardview.widget.CardView;
      private void slideDownAnimation(View view){
          Animation slideDownAnim = AnimationUtils.loadAnimation(this, R.anim.slide_chapters_activity_background_down);
          view.startAnimation(slideDownAnim);
+         slideDownAnim.setAnimationListener(new Animation.AnimationListener() {
+             @Override
+             public void onAnimationStart(Animation animation) {
+
+             }
+
+             @Override
+             public void onAnimationEnd(Animation animation) {
+                setBackgroundAnimationEnded(true);
+             }
+
+             @Override
+             public void onAnimationRepeat(Animation animation) {
+
+             }
+         });
      }
 
      private void startSplashActivity() {
-         if (!isSplashSkipped()) {
-             findViewById(R.id.chapters_activity_view).setVisibility(View.INVISIBLE);
-             startActivity(new Intent(ChaptersActivity.this, SplashActivity.class));
-         }
+         findViewById(R.id.chapters_activity_view).setVisibility(View.INVISIBLE);
+         startActivity(new Intent(ChaptersActivity.this, SplashActivity.class));
      }
 
      public Boolean isSplashSkipped() {
          return getSharedPreferences(getString(R.string.splash_status_key), MODE_PRIVATE).getBoolean(getString(R.string.is_splash_skipped_key), false);
+     }
+
+     public Boolean isBackgroundAnimationEnded() {
+         return isBackgroundAnimationEnded;
+     }
+
+     public void setBackgroundAnimationEnded(Boolean animationEnded) {
+         isBackgroundAnimationEnded = animationEnded;
      }
  }

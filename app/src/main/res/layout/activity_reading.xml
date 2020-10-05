@@ -9,8 +9,25 @@
     android:background="@color/color_white"
     tools:context=".ReadingActivity">
     <ImageButton
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/btn_go_to_top"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:alpha="0.7"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="10dp"
+        android:onClick="goToTop"
+        android:visibility="gone"
+        android:scaleType="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="ContentDescription"
+        />
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/img_btn_dark_mode"
         android:alpha="0.8"
         android:elevation="10dp"
