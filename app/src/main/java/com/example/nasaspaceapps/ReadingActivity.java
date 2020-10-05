@@ -62,17 +62,17 @@ public class ReadingActivity extends AppCompatActivity {
         if(isDarkModeEnabled()) {
             readingContentWV.loadUrl("file:///android_asset/" + chapter.toString().toLowerCase() + "_dark_mode.html");
             readingContentWV.setBackgroundColor(getColor(R.color.color_dark_black));
-            darkModeIB.setBackgroundResource(R.drawable.disable_dark_mode_bttn_background);
+            darkModeIB.setBackgroundResource(R.drawable.dark_mode_circle_background);
             darkModeIB.setImageResource(R.drawable.ic_disable_dark_mode);
-            gotoTopIB.setBackgroundResource(R.drawable.disable_dark_mode_bttn_background);
+            gotoTopIB.setBackgroundResource(R.drawable.dark_mode_circle_background);
             gotoTopIB.setImageResource(R.drawable.ic_arrow_go_to_top_dark_mode);
         }
         else {
             readingContentWV.loadUrl("file:///android_asset/" + chapter.toString().toLowerCase() + "_light_mode.html");
             readingContentWV.setBackgroundColor(getColor(R.color.color_white));
-            darkModeIB.setBackgroundResource(R.drawable.enable_dark_mode_bttn_background);
+            darkModeIB.setBackgroundResource(R.drawable.light_mode_circle_background);
             darkModeIB.setImageResource(R.drawable.ic_enable_dark_mode);
-            gotoTopIB.setBackgroundResource(R.drawable.enable_dark_mode_bttn_background);
+            gotoTopIB.setBackgroundResource(R.drawable.light_mode_circle_background);
             gotoTopIB.setImageResource(R.drawable.ic_arrow_go_to_top_light_mode);
         }
         WebSettings webSettings = readingContentWV.getSettings();
